@@ -94,7 +94,7 @@ with tab_main:
                                     break
                             row_out[f"Hero{i}"] = hero
                             row_out[f"H{i} Teamup"] = cell
-                        if min_teamups <= n_teamups <= max_teamups:
+                        if min_teamups <= n_teamups <= 6:
                             row_out["Num Teamups"] = n_teamups
                             results.append(row_out)
 

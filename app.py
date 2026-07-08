@@ -20,7 +20,7 @@ with tab_main:
   heroes = heroes.sort_values(names)
 
   with col_vanguard:
-      st.subheader("Vanguard")
+      st.subheader("⚔️ Vanguard")
       min_vanguard = st.number_input("Min", min_value=0, max_value=6, value=1, key="min_vanguard")
       max_vanguard = st.number_input("Max", min_value=0, max_value=6, value=3, key="max_vanguard")
       vanguard_options = heroes.loc[heroes["Role"] == "Vanguard", names].tolist()

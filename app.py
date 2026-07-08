@@ -61,7 +61,42 @@ with tab_main:
       go_pressed = st.button("Go")
   
   if go_pressed:
-    st.write("Placeholder")
+    # teamups keyed by anchor display name
+    anchor_map = {}
+    for row in teamups.itertuples():
+        a = name_map.get(row.Hero_Anchor, row.Hero_Anchor)
+        p = name_map.get(row.Hero_Partner, row.Hero_Partner)
+        anchor_map.setdefault(a, []).append((row.Teamup_Name, p))
+
+    results = []
+    for n_v in range(min_vanguard, max_vanguard + 1):
+        for n_d in range(min_duelist, max_duelist + 1):
+            n_s = 6 - n_v - n_d
+            if not (min_strategist <= n_s <= max_strategist):
+                continue
+            for vs in itertools.combinations(selected_vanguards, n_v):
+                for ds in itertools.combinations(selected_duelists, n_d):
+                    for ss in itertools.combinations(selected_strategist, n_s):
+                        comp = vs + ds + ss
+                        members = set(comp)
+                        n_teamups = 0
+                        row_out = {"Comp": f"{n_v}-{n_d}-{n_s}"}
+                        for i, hero in enumerate(comp, start=1):
+                            cell = ""
+                            for t_name, partner in anchor_map.get(hero, []):
+                                if partner in members:
+                                    cell = f"{t_name} ({partner})"
+                                    n_teamups += 1
+                                    break
+                            row_out[f"Hero{i}"] = hero
+                            row_out[f"H{i} Teamup"] = cell
+                        if min_teamups <= n_teamups <= max_teamups:
+                            row_out["Num Teamups"] = n_teamups
+                            results.append(row_out)
+
+    result_df = pd.DataFrame(results)
+    st.write(f"{len(result_df):,} compositions found")
+    st.dataframe(result_df)
 
 
 

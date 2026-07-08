@@ -10,7 +10,7 @@ st.title("Marvel Rivals Team-Up Tracker")
 tab_main, tab_data = st.tabs(["Main", "Data"])
 
 with tab_main:
-  col_vanguard, col_duelist, col_strategist = st.columns(3)
+  col_vanguard, col_duelist, col_strategist, col_misc = st.columns(3)
 
   with col_vanguard:
       st.subheader("Vanguard")
@@ -26,6 +26,10 @@ with tab_main:
       st.subheader("Strategist")
       min_strategist = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_strategist")
       max_strategist = st.number_input("Max", min_value=0, max_value=6, value=3, key="max_strategist")
+
+  with col_misc:
+      st.subheader("Misc.")
+      short_names = st.toggle("Use short hero names", value=True)
 
 with tab_data:
   st.dataframe(teamups)

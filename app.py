@@ -10,7 +10,7 @@ st.title("Marvel Rivals Team-Up Tracker")
 tab_main, tab_data = st.tabs(["Main", "Data"])
 
 with tab_main:
-  col_vanguard, col_duelist, col_strategist, col_misc = st.columns(3)
+  col_vanguard, col_duelist, col_strategist, col_misc = st.columns(4)
 
   with col_vanguard:
       st.subheader("Vanguard")

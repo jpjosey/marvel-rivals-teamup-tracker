@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import itertools
 
 # setup
 heroes = pd.read_csv("heroes.csv")

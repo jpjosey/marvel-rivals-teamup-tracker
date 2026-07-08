@@ -22,7 +22,7 @@ with tab_main:
       st.subheader("Vanguard")
       min_vanguard = st.number_input("Min", min_value=0, max_value=6, value=1, key="min_vanguard")
       max_vanguard = st.number_input("Max", min_value=0, max_value=6, value=3, key="max_vanguard")
-      vanguard_options = heros.loc[heroes["Role"] == "Vanguard", names].tolist()
+      vanguard_options = heroes.loc[heroes["Role"] == "Vanguard", names].tolist()
       selected_vanguards = st.multiselect("Allowed", options=vanguard_options, default=vanguard_options)
   
   with col_duelist:

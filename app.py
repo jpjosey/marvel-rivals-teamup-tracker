@@ -17,6 +17,7 @@ with tab_main:
       short_names = st.toggle("Use short hero names", value=True)
 
   names = "Short_Name" if short_names else "Hero"
+  heroes = heroes.sort_values(names)
 
   with col_vanguard:
       st.subheader("Vanguard")

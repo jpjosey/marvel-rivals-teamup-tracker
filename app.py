@@ -56,6 +56,7 @@ with tab_main:
       selected_teamups = st.multiselect("Allowed", options=teamup_options, default=teamup_options)
 
   with col_go:
+      st.subheader("GO!")
       st.write("Warning, insufficient constraints may return literally millions of compositions. Do you hate the rainforest bro?")
       go_pressed = st.button("Go")
       if go_pressed:

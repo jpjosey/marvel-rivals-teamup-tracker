@@ -4,6 +4,7 @@ import pandas as pd
 # setup
 heroes = pd.read_csv("heroes.csv")
 teamups = pd.read_csv("teamups.csv")
+st.set_page_config(layout="wide")
 
 st.title("Marvel Rivals Team-Up Tracker")
 

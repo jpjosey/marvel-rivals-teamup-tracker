@@ -1,4 +1,8 @@
 import streamlit as st
+import pandas as pd
+
+# setup
+teamups = pd.read_csv("teamups.csv")
 
 st.title("Marvel Rivals Team-Up Tracker")
 
@@ -8,4 +12,4 @@ with tab_main:
   st.write("Main tab - watch this space")
 
 with tab_data:
-  st.write("Data go here soon")
+  st.dataframe(teamups)

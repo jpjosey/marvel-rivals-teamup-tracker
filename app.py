@@ -51,7 +51,7 @@ with tab_main:
   with col_teamups:
       st.subheader("Team-Ups")
       min_teamups = st.number_input("Min. Enhanced", min_value=0, max_value=6, value=3, key="min_teamups")
-      max_teamups = st.number_input("Max. Enhanced", min_value=0, max_value=6, value=6, key="min_teamups")
+      max_teamups = st.number_input("Max. Enhanced", min_value=0, max_value=6, value=6, key="max_teamups")
       selected_teamups = multiselect("Allowed", option=teamup_options, default=teamup_options)
 
 

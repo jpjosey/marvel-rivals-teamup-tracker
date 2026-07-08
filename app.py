@@ -11,7 +11,7 @@ st.title("Marvel Rivals Team-Up Tracker")
 tab_main, tab_data = st.tabs(["Main", "Data"])
 
 with tab_main:
-  col_settings, col_vanguard, col_duelist, col_strategist, col_teamups = st.columns(5)
+  col_settings, col_vanguard, col_duelist, col_strategist, col_teamups, col_go = st.columns(6)
 
   with col_settings:
       st.subheader("Options")
@@ -54,6 +54,12 @@ with tab_main:
       min_teamups = st.number_input("Min. Enhanced", min_value=0, max_value=6, value=3, key="min_teamups")
       max_teamups = st.number_input("Max. Enhanced", min_value=0, max_value=6, value=6, key="max_teamups")
       selected_teamups = st.multiselect("Allowed", options=teamup_options, default=teamup_options)
+
+  with col_go:
+      st.write("Warning, insufficient constraints may return literally millions of compositions. Do you hate the rainforest bro?")
+      go_pressed = st.button("Go")
+      if go_pressed:
+        st.write("Placeholder")
 
 
 

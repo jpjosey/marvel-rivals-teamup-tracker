@@ -23,7 +23,7 @@ with tab_main:
 
   name_map = dict(zip(heroes["Hero"], heroes[names]))
   teamup_options = sorted(
-    f"{row.Teamup_Name} ({name_map.get(row.Hero_Anchor, row.Hero_Anchor)}|{name_map.get(row.Hero_Partner, row.Hero_Partner)}"
+    f"{row.Teamup_Name} ({name_map.get(row.Hero_Anchor, row.Hero_Anchor)}|{name_map.get(row.Hero_Partner, row.Hero_Partner)})"
     for row in teamups.itertuples()
   )
   

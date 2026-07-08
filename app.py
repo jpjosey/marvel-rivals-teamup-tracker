@@ -62,6 +62,7 @@ with tab_main:
       go_pressed = st.button("Go")
   
   if go_pressed:
+    deadpools = {name_map.get(h, h) for h in ["Deadpool (Vanguard)", "Deadpool (Duelist)", "Deadpool (Strategist)"]}
     # teamups keyed by anchor display name
     anchor_map = {}
     for row in teamups.itertuples():
@@ -80,6 +81,8 @@ with tab_main:
                     for ss in itertools.combinations(selected_strategist, n_s):
                         comp = vs + ds + ss
                         members = set(comp)
+                        if len(members & deadpools) > 1:
+                          continue
                         n_teamups = 0
                         row_out = {"Comp": f"{n_v}-{n_d}-{n_s}"}
                         for i, hero in enumerate(comp, start=1):

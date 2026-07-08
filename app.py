@@ -52,7 +52,7 @@ with tab_main:
       st.subheader("Team-Ups")
       min_teamups = st.number_input("Min. Enhanced", min_value=0, max_value=6, value=3, key="min_teamups")
       max_teamups = st.number_input("Max. Enhanced", min_value=0, max_value=6, value=6, key="max_teamups")
-      selected_teamups = multiselect("Allowed", options=teamup_options, default=teamup_options)
+      selected_teamups = st.multiselect("Allowed", options=teamup_options, default=teamup_options)
 
 
 

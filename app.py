@@ -59,8 +59,9 @@ with tab_main:
       st.subheader("GO!")
       st.write("Warning, insufficient constraints may return literally millions of compositions. Do you hate the rainforest bro?")
       go_pressed = st.button("Go")
-      if go_pressed:
-        st.write("Placeholder")
+  
+  if go_pressed:
+    st.write("Placeholder")
 
 
 

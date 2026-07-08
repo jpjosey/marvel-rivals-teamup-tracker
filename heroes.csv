@@ -45,7 +45,9 @@ Wolverine,Duelist,Wolv
 Iron Fist,Duelist,Fist
 Phoenix,Duelist,Phoenix
 Daredevil,Duelist,DD
-Deadpool,Duelist,DP
+Deadpool (Vanguard),Vanguard,TankPool
+Deadpool (Duelist),Duelist,DpsPool
+Deadpool (Strategist),Strategist,HealPool
 Elsa Bloodstone,Duelist,Elsa
 Black Cat,Duelist,Cat
 Cyclops,Duelist,Cyclops

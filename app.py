@@ -62,10 +62,7 @@ with tab_main:
       st.write("Warning, insufficient constraints may return literally millions of compositions. Do you hate the rainforest bro?")
       go_pressed = st.button("Go")
   
-  if go_pressed:
-    must_v = set(must_vanguards)
-    must_d = set(must_duelists)
-    must_s = set(must_strategists)
+if go_pressed:
     deadpools = {name_map.get(h, h) for h in ["Deadpool (Vanguard)", "Deadpool (Duelist)", "Deadpool (Strategist)"]}
     # teamups keyed by anchor display name
     anchor_map = {}
@@ -74,11 +71,21 @@ with tab_main:
         p = name_map.get(row.Hero_Partner, row.Hero_Partner)
         anchor_map.setdefault(a, []).append((row.Teamup_Name, p))
 
+    must_v = set(must_vanguards)
+    must_d = set(must_duelists)
+    must_s = set(must_strategists)
+
     results = []
     for n_v in range(min_vanguard, max_vanguard + 1):
+        if n_v < len(must_v):
+            continue
         for n_d in range(min_duelist, max_duelist + 1):
+            if n_d < len(must_d):
+                continue
             n_s = 6 - n_v - n_d
             if not (min_strategist <= n_s <= max_strategist):
+                continue
+            if n_s < len(must_s):
                 continue
             for vs in itertools.combinations(selected_vanguards, n_v):
                 if not must_v <= set(vs):
@@ -90,6 +97,9 @@ with tab_main:
                         if not must_s <= set(ss):
                             continue
                         comp = vs + ds + ss
+                        members = set(comp)
+                        if len(members & deadpools) > 1:
+                            continue
                         n_teamups = 0
                         row_out = {"Comp": f"{n_v}-{n_d}-{n_s}"}
                         for i, hero in enumerate(comp, start=1):

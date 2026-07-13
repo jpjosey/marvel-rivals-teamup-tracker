@@ -29,26 +29,29 @@ with tab_main:
   )
   
 
-  with col_vanguard:
-      st.subheader("Vanguard")
-      min_vanguard = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_vanguard")
-      max_vanguard = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_vanguard")
-      vanguard_options = heroes.loc[heroes["Role"] == "Vanguard", names].tolist()
-      selected_vanguards = st.multiselect("Allowed", options=vanguard_options, default=vanguard_options)
-  
-  with col_duelist:
-      st.subheader("Duelist")
-      min_duelist = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_duelist")
-      max_duelist = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_duelist")
-      duelist_options = heroes.loc[heroes["Role"] == "Duelist", names].tolist()
-      selected_duelists = st.multiselect("Allowed", options=duelist_options, default=duelist_options)
-  
-  with col_strategist:
-      st.subheader("Strategist")
-      min_strategist = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_strategist")
-      max_strategist = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_strategist")
-      strategist_options = heroes.loc[heroes["Role"] == "Strategist", names].tolist()
-      selected_strategist = st.multiselect("Allowed", options=strategist_options, default=strategist_options)
+ with col_vanguard:
+    st.subheader("Vanguard")
+    min_vanguard = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_vanguard")
+    max_vanguard = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_vanguard")
+    vanguard_options = heroes.loc[heroes["Role"] == "Vanguard", names].tolist()
+    selected_vanguards = st.multiselect("Allowed", options=vanguard_options, default=vanguard_options)
+    must_vanguards = st.multiselect("Must include", options=vanguard_options, key="must_vanguard")
+
+with col_duelist:
+    st.subheader("Duelist")
+    min_duelist = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_duelist")
+    max_duelist = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_duelist")
+    duelist_options = heroes.loc[heroes["Role"] == "Duelist", names].tolist()
+    selected_duelists = st.multiselect("Allowed", options=duelist_options, default=duelist_options)
+    must_duelists = st.multiselect("Must include", options=duelist_options, key="must_duelist")
+
+with col_strategist:
+    st.subheader("Strategist")
+    min_strategist = st.number_input("Min", min_value=0, max_value=6, value=2, key="min_strategist")
+    max_strategist = st.number_input("Max", min_value=0, max_value=6, value=2, key="max_strategist")
+    strategist_options = heroes.loc[heroes["Role"] == "Strategist", names].tolist()
+    selected_strategist = st.multiselect("Allowed", options=strategist_options, default=strategist_options)
+    must_strategists = st.multiselect("Must include", options=strategist_options, key="must_strategist")
 
   with col_teamups:
       st.subheader("Team-Ups")
@@ -62,6 +65,9 @@ with tab_main:
       go_pressed = st.button("Go")
   
   if go_pressed:
+    must_v = set(must_vanguards)
+    must_d = set(must_duelists)
+    must_s = set(must_strategists)
     deadpools = {name_map.get(h, h) for h in ["Deadpool (Vanguard)", "Deadpool (Duelist)", "Deadpool (Strategist)"]}
     # teamups keyed by anchor display name
     anchor_map = {}
@@ -77,12 +83,15 @@ with tab_main:
             if not (min_strategist <= n_s <= max_strategist):
                 continue
             for vs in itertools.combinations(selected_vanguards, n_v):
+                if not must_v <= set(vs):
+                    continue
                 for ds in itertools.combinations(selected_duelists, n_d):
+                    if not must_d <= set(ds):
+                        continue
                     for ss in itertools.combinations(selected_strategist, n_s):
+                        if not must_s <= set(ss):
+                            continue
                         comp = vs + ds + ss
-                        members = set(comp)
-                        if len(members & deadpools) > 1:
-                          continue
                         n_teamups = 0
                         row_out = {"Comp": f"{n_v}-{n_d}-{n_s}"}
                         for i, hero in enumerate(comp, start=1):
